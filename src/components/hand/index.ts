@@ -27,7 +27,7 @@ export function initHandComp() {
         transform: translateY(30px);
       }
       .inactive{
-        opacity: 80%;
+        opacity: 60%;
         transform: translateY(30px);
         transition: 0.5s;
       }

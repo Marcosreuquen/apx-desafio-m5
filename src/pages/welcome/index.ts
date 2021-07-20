@@ -12,18 +12,16 @@ export function WelcomePage(params) {
   .page{
     margin: 0 auto;
     max-width: 336px;
-    height: 60%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    height: 100%;
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
     padding-top: 5%;
   }
   .hands{
     max-width: 336px;
     display: flex;
     justify-content: space-around;
-    position: absolute;
-    bottom: 0;
+    align-self: end;
   }
   `;
   div.innerHTML = `

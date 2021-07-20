@@ -11,14 +11,15 @@ export function PlayPage(params) {
   .page{
     margin: 0 auto;
     max-width: 336px;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
   }
   .hands{
     max-width: 336px;
-    width: 80%;
     display: flex;
     justify-content: space-around;
-    position: fixed;
-    bottom: 0;
+    align-self: end;
   }
   .timer{
     display:flex;

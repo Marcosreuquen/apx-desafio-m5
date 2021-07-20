@@ -9,13 +9,15 @@ export function RulesPage(params) {
   .page{
     margin: 0 auto;
     max-width: 336px;
+    height: 100%;
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
   }
   .hands{
     max-width: 336px;
     display: flex;
     justify-content: space-around;
-    position: fixed;
-    bottom: 0;
+    align-self: end;
   }
   `;
   div.innerHTML = `

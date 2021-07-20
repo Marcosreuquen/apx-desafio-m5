@@ -12,6 +12,11 @@ export function ResultPage(params) {
   *{
     box-sixing: border-box;
   }
+  .img{
+    width: 220px;
+    height: 220px;
+    margin: 0 auto;
+  }
   .loose{
     background-color: #894949aa;
   }
@@ -19,12 +24,10 @@ export function ResultPage(params) {
     background-color: #888949aa;
   }
   .page{
-    width: 100%;
-    height: 100%;
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    margin: 0 auto;
+    max-width: 336px;
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
   }
   .Score{
     width: 259px;
@@ -32,7 +35,6 @@ export function ResultPage(params) {
     background-color: #FFF;
     border:10px solid #000;
     border-radius: 10px;
-    margin: 10px;
     font-family: 'VT323';
   }
   .Score>h4{
@@ -60,14 +62,14 @@ export function ResultPage(params) {
 
   div.innerHTML = `
   <div class="page">
-    <img src="${imgSrc[result]}">
+    <img class="img" src="${imgSrc[result]}">
     <div class="Score">
       <h4>Score</h4>
       <p>Vos: ${STATE.getScore().win}</p>
       <p>Máquina: ${STATE.getScore().loose}</p>
     </div>
     <buttons-el content="Volver a Jugar"></buttons-el>
-    </div>
+  </div>
   `;
   div.appendChild(style);
 
