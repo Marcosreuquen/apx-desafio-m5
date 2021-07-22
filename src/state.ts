@@ -15,6 +15,10 @@ const STATE = {
 
   getState() {
     this.data = JSON.parse(localStorage.getItem("data"));
+    this.data.currentGame = {
+      computerPlay: "",
+      myPlay: "",
+    };
     return this.data;
   },
 
