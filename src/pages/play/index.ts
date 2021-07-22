@@ -70,17 +70,23 @@ export function PlayPage(params) {
     if (timer === 0) {
       //Llegó a 0
       clearInterval(intervalID);
-      //SHOW MACHINE MOVE
-      div.querySelector(".timer").innerHTML = `
+      //CHECK USER SELECTION
+      if (STATE.data.currentGame.myPlay) {
+        //SHOW MACHINE MOVE
+        div.querySelector(".timer").innerHTML = `
         <hand-comp type="${STATE.machineMove()}" status="machine"></hand-comp>
-      `;
-      //DELETE INACTIVES
-      div.querySelector(".hands").innerHTML = `
+        `;
+        //DELETE INACTIVES
+        div.querySelector(".hands").innerHTML = `
         <hand-comp type="${STATE.data.currentGame.myPlay}" status="selected"></hand-comp>
-      `;
-      setTimeout(() => {
-        params.goTo("/apx-desafio-m5/result");
-      }, 3000);
+        `;
+        setTimeout(() => {
+          STATE.saveData();
+          params.goTo("/apx-desafio-m5/result");
+        }, 3000);
+      } else {
+        params.goTo("/apx-desafio-m5/rules");
+      }
     }
   }, 1000);
 

@@ -14,7 +14,7 @@ const STATE = {
   },
 
   getState() {
-    //this.data = localStorage.getItem("data");
+    this.data = JSON.parse(localStorage.getItem("data"));
     return this.data;
   },
 

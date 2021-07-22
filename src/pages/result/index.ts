@@ -8,6 +8,7 @@ export function ResultPage(params) {
   const div = document.createElement("div");
   div.className = "page";
   const style = document.createElement("style");
+
   style.innerHTML = `
   *{
     box-sixing: border-box;
@@ -28,6 +29,8 @@ export function ResultPage(params) {
     max-width: 336px;
     display: grid;
     grid-template-rows: repeat(3, 1fr);
+    align-items: center;
+    justify-content: center;
   }
   .Score{
     width: 259px;
@@ -49,6 +52,11 @@ export function ResultPage(params) {
     text-align: right;
     margin: 5px;
   }
+  .buttons{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
   `;
 
   let result;
@@ -61,21 +69,29 @@ export function ResultPage(params) {
   document.body.className = result;
 
   div.innerHTML = `
-  <div class="page">
     <img class="img" src="${imgSrc[result]}">
     <div class="Score">
       <h4>Score</h4>
       <p>Vos: ${STATE.getScore().win}</p>
       <p>Máquina: ${STATE.getScore().loose}</p>
     </div>
-    <buttons-el content="Volver a Jugar"></buttons-el>
-  </div>
+    <div class="buttons">
+      <buttons-el class="play-again" content="Volver a Jugar"></buttons-el>
+      <buttons-el class="clean-score" content="Limpiar puntaje"></buttons-el>
+    </div>
   `;
   div.appendChild(style);
 
-  div.querySelector("buttons-el").addEventListener("buttonEvent", (e: any) => {
-    params.goTo(e.detail.route + "welcome");
+  div.querySelector(".play-again").addEventListener("buttonEvent", (e: any) => {
+    params.goTo(e.detail.route + "play");
   });
+  div
+    .querySelector(".clean-score")
+    .addEventListener("buttonEvent", (e: any) => {
+      STATE.data.history = [];
+      STATE.saveData();
+      params.goTo(e.detail.route + "result");
+    });
 
   STATE.saveData();
   return div;
