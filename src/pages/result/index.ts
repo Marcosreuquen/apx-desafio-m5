@@ -72,8 +72,8 @@ export function ResultPage(params) {
     <img class="img" src="${imgSrc[result]}">
     <div class="Score">
       <h4>Score</h4>
-      <p>Vos: ${STATE.getScore().win}</p>
-      <p>Máquina: ${STATE.getScore().loose}</p>
+      <p class="vos">Vos: ${STATE.getScore().win}</p>
+      <p class="maquina">Máquina: ${STATE.getScore().loose}</p>
     </div>
     <div class="buttons">
       <buttons-el class="play-again" content="Volver a Jugar"></buttons-el>
@@ -88,9 +88,8 @@ export function ResultPage(params) {
   div
     .querySelector(".clean-score")
     .addEventListener("buttonEvent", (e: any) => {
-      STATE.data.history = [];
-      STATE.saveData();
-      params.goTo(e.detail.route + "result");
+      STATE.cleanData();
+      params.goTo(e.detail.route + "rules");
     });
 
   STATE.saveData();

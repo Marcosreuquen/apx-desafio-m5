@@ -14,16 +14,15 @@ const STATE = {
   },
 
   getState() {
-    this.data = JSON.parse(localStorage.getItem("data"));
-    this.data.currentGame = {
-      computerPlay: "",
-      myPlay: "",
-    };
+    if (localStorage.getItem("data")) {
+      this.data = JSON.parse(localStorage.getItem("data"));
+    }
     return this.data;
   },
 
   setMove(move: Play) {
     this.data.currentGame.myPlay = move;
+    this.saveData();
   },
 
   PushToHistory(winner: boolean) {
@@ -33,11 +32,13 @@ const STATE = {
   whoWins() {
     const computerPlay = this.data.currentGame.computerPlay;
     const myPlay = this.data.currentGame.myPlay;
+
     const game = [
-      myPlay == "scissors" && computerPlay == "paper",
-      myPlay == "paper" && computerPlay == "stone",
-      myPlay == "stone" && computerPlay == "scissors",
+      myPlay === "scissors" && computerPlay === "paper",
+      myPlay === "paper" && computerPlay === "stone",
+      myPlay === "stone" && computerPlay === "scissors",
     ];
+
     if (game.includes(true)) {
       this.PushToHistory(true);
       return true;
@@ -50,7 +51,14 @@ const STATE = {
   machineMove() {
     const moves = ["scissors", "paper", "stone"];
     const index = Math.floor(Math.random() * (3 - 0)) + 0;
-    const computerPlay = moves[index];
+    let computerPlay = moves[index];
+
+    if (computerPlay === this.data.currentGame.myPlay) {
+      const newIndex = Math.floor(Math.random() * (3 - 0)) + 0;
+      computerPlay = moves[newIndex];
+    }
+
+    this.saveData();
     this.data.currentGame.computerPlay = computerPlay;
     return computerPlay;
   },
@@ -60,10 +68,10 @@ const STATE = {
     let loose: number = 0;
 
     for (const game of this.data.history) {
-      if (game) {
+      if (game === true) {
         win += 1;
       }
-      if (!game) {
+      if (game === false) {
         loose += 1;
       }
     }
@@ -76,8 +84,19 @@ const STATE = {
   saveData() {
     localStorage.setItem("data", JSON.stringify(this.data));
   },
+  cleanData() {
+    localStorage.setItem(
+      "data",
+      JSON.stringify({
+        currentGame: {
+          computerPlay: "",
+          myPlay: "",
+          winner: true,
+        },
+        history: [],
+      })
+    );
+  },
 };
-
-//state.setMove("piedra");
 
 export { STATE };
